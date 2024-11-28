@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-$_qo5c80(w#^y$93n-3_(fr3^3gyuk1in4w$6(xmnka19^4_e4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*", ""]
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "crops",
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,14 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATIC_URL = 'static/'
+
+# all images will be located in the images folder inside static folder
+MEDIA_URL = '/images/'
+
+# The application will find all the image files in the base static folder
+MEDIA_ROOT = BASE_DIR / 'static/'
+
+# The application will find all the static files in the base static folder
+STATICFILES_DIRS = [ BASE_DIR / 'static' ]
