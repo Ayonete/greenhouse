@@ -1,24 +1,42 @@
 {% extends 'crops/base.html' %}
-
 {% load static %}
 
 {% block content %}
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="">
-                <a href="{% url 'home' %}" class="my-3 btn btn-dark btn-sm">Go Back</a>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Left column: image -->
+        <div class="col-md-6 text-center mb-4">
+            <img src="{{ crop.image.url }}" class="img-fluid rounded" alt="{{ crop.name }}" width = 50%>
+        </div>
+
+        <!-- Right column: details -->
+        <div class="col-md-6">
+            <h3>{{ crop.name }}</h3>
+            <p>{{ crop.description }}</p>
+
+            <p><strong>Last Recorded Temperature:</strong> {{ crop.temperature }}</p>
+            <p><strong>Last Recorded Moisture:</strong> {{ crop.moisture }}</p>
+
+            <!-- Row of buttons -->
+            <div class="row mb-3">
+                <div class="col-md-6 mb-2">
+                    <a href="{% url 'diagnostics' %}" class="btn btn-outline-dark w-100">Run Diagnostics</a>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <a href="{% url 'edit-crop' crop.id %}" class="btn btn-success w-100">Update Details</a>
+                </div>
             </div>
-            <div style="height: 90vh">
-                <img class="img-fluid text-center" style="max-width: 100%; max-height: 100%" src="{{ crop.image.url }}" alt="image gone">
-                <h5 class="text-muted"> {{ crop.name }} </h5>
-                <quote>{{ crop.description }}</quote><br>
-                <small><b>Last Recorded Temperature:</b>{{crop.temperature}}</small><br>
-                <small><b>Last Recorded Moisture:</b> {{ crop.moisture }}</small><br>
-                <a href="{% url 'diagnostics' %}" class="btn btn-outline-dark btn-sm">Run Diagnostics</a><br>
-                <a href="{% url 'edit-crop' crop.id %}" class="btn btn-success btn-sm">Update Details</a><br>
-                <a href="{% url 'delete-crop' crop.id %}" class="btn btn-danger btn-sm">Delete</a><br>
-                
+
+            <!-- Delete button on its own row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="{% url 'delete-crop' crop.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger w-100">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
